@@ -1,0 +1,1 @@
+heroku ps:scale web=1 --app heart-disease-prediction-ulead
