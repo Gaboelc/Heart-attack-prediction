@@ -1,20 +1,17 @@
-# Utiliza la imagen oficial de Python como base
-FROM python:3.8-slim
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim-buster
 
-# Establece el directorio de trabajo
+# Set the working directory to /app
 WORKDIR /app
 
-# Copia los archivos de requisitos de la aplicación
-COPY requirements.txt .
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Instala los paquetes necesarios
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el resto del código fuente de la aplicación
-COPY . .
-
-# Define el puerto que se expondrá
+# Make port 5000 available to the world outside this container
 EXPOSE 5000
 
-# Ejecuta el comando para iniciar la aplicación
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
+# Run app.py when the container launches
+CMD ["python", "app.py"]
