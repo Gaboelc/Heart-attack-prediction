@@ -20,8 +20,15 @@ document
 
 		if (response.ok) {
 			let result = await response.json();
-			document.getElementById('prediction-result').textContent =
-				'Prone to heart attack: ' + result.prediction;
+			let message;
+			if (result.prediction === 1) {
+				message = 'Prone to heart attack: True';
+			} else if (result.prediction === 0) {
+				message = 'Prone to heart attack: False';
+			} else {
+				message = 'Error en la predicción';
+			}
+			document.getElementById('prediction-result').textContent = message;
 		} else {
 			document.getElementById('prediction-result').textContent =
 				'Error: ' + response.status + ' ' + response.statusText;
